@@ -1,7 +1,13 @@
 # tf-atom-cloudfront-cache-policy-aws
 
-[![CI](https://github.com/PlatformStackPulse/tf-atom-cloudfront-cache-policy-aws/actions/workflows/ci.yml/badge.svg)](https://github.com/PlatformStackPulse/tf-atom-cloudfront-cache-policy-aws/actions/workflows/ci.yml)
-![Terraform](https://img.shields.io/badge/terraform-%3E%3D1.6.0-blueviolet)
+[![Terraform Format](https://img.shields.io/badge/terraform-fmt-blue?logo=terraform)](https://github.com/PlatformStackPulse/tf-atom-cloudfront-cache-policy-aws/actions)
+[![Terraform Validate](https://img.shields.io/badge/terraform-validate-blue?logo=terraform)](https://github.com/PlatformStackPulse/tf-atom-cloudfront-cache-policy-aws/actions)
+[![TFLint](https://img.shields.io/badge/tflint-passing-brightgreen?logo=terraform)](https://github.com/PlatformStackPulse/tf-atom-cloudfront-cache-policy-aws/actions)
+[![Terraform Test](https://img.shields.io/badge/tests-3%20passed-brightgreen?logo=terraform)](https://github.com/PlatformStackPulse/tf-atom-cloudfront-cache-policy-aws/actions)
+[![Security Scan](https://img.shields.io/badge/trivy-passing-brightgreen?logo=aqua)](https://github.com/PlatformStackPulse/tf-atom-cloudfront-cache-policy-aws/actions)
+[![Conventional Commits](https://img.shields.io/badge/commits-conventional-blue?logo=conventionalcommits)](https://conventionalcommits.org)
+[![Documentation](https://img.shields.io/badge/docs-terraform--docs-blue?logo=readthedocs)](https://github.com/PlatformStackPulse/tf-atom-cloudfront-cache-policy-aws/actions)
+[![License](https://img.shields.io/badge/license-MIT-blue?logo=opensourceinitiative)](LICENSE)
 
 Terraform atom that provisions an [AWS CloudFront Cache Policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_cache_policy) with fully configurable cache-key and TTL behavior, following the [tf-label](https://github.com/PlatformStackPulse/tf-label) naming/tagging convention.
 
