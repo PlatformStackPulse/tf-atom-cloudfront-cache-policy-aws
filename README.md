@@ -3,9 +3,39 @@
 [![CI](https://github.com/PlatformStackPulse/tf-atom-cloudfront-cache-policy-aws/actions/workflows/ci.yml/badge.svg)](https://github.com/PlatformStackPulse/tf-atom-cloudfront-cache-policy-aws/actions/workflows/ci.yml)
 ![Terraform](https://img.shields.io/badge/terraform-%3E%3D1.6.0-blueviolet)
 
-## Purpose
+Terraform atom that provisions an [AWS CloudFront Cache Policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_cache_policy) with fully configurable cache-key and TTL behavior, following the [tf-label](https://github.com/PlatformStackPulse/tf-label) naming/tagging convention.
 
-Terraform atom: AWS CloudFront Cache Policy - defines custom caching behavior.
+## Features
+
+- Creates a managed CloudFront cache policy with configurable `min_ttl`, `default_ttl`, and `max_ttl`.
+- Configurable cache-key composition for cookies, headers, and query strings (`none` / `whitelist` / `allExcept` / `all`), with optional item allowlists.
+- Toggles `gzip` and `brotli` accept-encoding participation in the cache key.
+- Consistent, globally-unique resource naming via the tf-label `context` (namespace / environment / stage / name / attributes).
+- `enabled` switch to conditionally create or skip the resource without removing the module block.
+
+## Usage
+
+```hcl
+module "cache_policy" {
+  source = "git::https://github.com/PlatformStackPulse/tf-atom-cloudfront-cache-policy-aws.git?ref=v1.0.0"
+
+  namespace   = "eg"
+  environment = "prod"
+  stage       = "web"
+  name        = "assets"
+
+  comment               = "Cache policy for static assets"
+  default_ttl           = 86400
+  max_ttl               = 31536000
+  min_ttl               = 0
+  cookie_behavior       = "none"
+  header_behavior       = "whitelist"
+  header_items          = ["Origin", "Accept"]
+  query_string_behavior = "all"
+  enable_gzip           = true
+  enable_brotli         = true
+}
+```
 
 ## Module Documentation
 
@@ -77,3 +107,22 @@ Terraform atom: AWS CloudFront Cache Policy - defines custom caching behavior.
 | <a name="output_etag"></a> [etag](#output\_etag) | Current version of the cache policy |
 | <a name="output_id"></a> [id](#output\_id) | ID of the cache policy |
 <!-- END_TF_DOCS -->
+
+## Tests
+
+Unit tests use the native `terraform test` framework with a mock AWS provider, so they run without credentials and make no real API calls.
+
+```bash
+# Run unit tests
+terraform init -backend=false
+terraform test -test-directory=tests/unit
+
+# Or via the Makefile
+make test-unit
+```
+
+Integration tests (which provision real infrastructure) live under `tests/integration` and require AWS credentials:
+
+```bash
+terraform test -test-directory=tests/integration
+```
